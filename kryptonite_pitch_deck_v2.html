@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kryptonite — Pitch Deck 2025</title>
+<meta property="og:title" content="Kryptonite — The AI Founder Assessment Platform">
+<meta property="og:description" content="Crisis simulations that produce standardized cognitive reports for investors doing due diligence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green: #1aff8c;
+    --green-dim: #1aff8c22;
+    --green-mid: #1aff8c44;
+    --bg: #08090b;
+    --bg2: #0d0f13;
+    --bg3: #111318;
+    --border: #1c1f26;
+    --border2: #252830;
+    --text: #f0f0ee;
+    --muted: #6b7280;
+    --sub: #9ca3af;
+    --amber: #f59e0b;
+    --blue: #0ea5e9;
+    --purple: #a855f7;
+  }
+
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; }
+
+  /* ── LAYOUT ── */
+  #app { width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+
+  /* ── TOP BAR ── */
+  #topbar {
+    height: 52px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px;
+    background: #08090bcc;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    position: relative; z-index: 100;
+  }
+  #logo { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: .08em; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  #logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  #slide-counter { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: .1em; }
+  #nav-pills { display: flex; gap: 4px; align-items: center; }
+  .pill-btn { width: 7px; height: 7px; border-radius: 50%; border: none; cursor: pointer; background: var(--border2); transition: all .3s; padding: 0; }
+  .pill-btn.active { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+  /* ── STAGE ── */
+  #stage { flex: 1; position: relative; overflow: hidden; }
+
+  /* ── SLIDES ── */
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding: 48px 64px;
+    opacity: 0; transform: translateX(60px);
+    transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+    overflow-y: auto;
+  }
+  .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
+  .slide.exit { opacity: 0; transform: translateX(-60px); }
+
+  /* ── LABELS ── */
+  .label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--green); }
+  .slide-title { font-family: 'Syne', sans-serif; font-size: clamp(28px,3.2vw,40px); font-weight: 700; line-height: 1.1; letter-spacing: -.02em; color: var(--text); margin-bottom: 32px; }
+  .slide-title em { color: var(--green); font-style: normal; }
+
+  /* ── CARDS ── */
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .card.glow { border-color: var(--green-mid); background: #1aff8c06; }
+
+  /* ── COVER ── */
+  #s1 {
+    align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #0d2218 0%, var(--bg) 70%);
+  }
+  #s1::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 39px, #1aff8c08 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 39px, #1aff8c06 40px);
+    pointer-events: none;
+  }
+  #s1 .cover-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 14px; border: 1px solid var(--green-mid); background: var(--green-dim);
+    color: var(--green); font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+    border-radius: 20px; margin-bottom: 32px; font-family: 'DM Mono', monospace;
+  }
+  #s1 h1 {
+    font-family: 'Syne', sans-serif; font-size: clamp(64px,9vw,112px); font-weight: 800;
+    letter-spacing: -.04em; line-height: .88; color: var(--text); margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+  #s1 h1 span { color: var(--green); text-shadow: 0 0 60px #1aff8c55; }
+  #s1 .sub { font-size: 15px; color: var(--muted); max-width: 440px; line-height: 1.65; font-weight: 300; margin-bottom: 44px; position: relative; z-index: 1; }
+  #s1 .chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+  #s1 .chip { padding: 5px 14px; border: 1px solid var(--border2); border-radius: 20px; font-size: 11px; color: var(--muted); background: var(--bg3); }
+
+  /* ── PROBLEM ── */
+  .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 24px; }
+  .stat-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; }
+  .stat-box .num { font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800; color: var(--green); line-height: 1; margin-bottom: 8px; }
+  .stat-box .lbl { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .quote-card { background: var(--bg2); border: 1px solid var(--border2); border-left: 3px solid var(--green); border-radius: 0 12px 12px 0; padding: 18px 22px; }
+  .quote-card p { font-size: 14px; color: var(--sub); line-height: 1.65; font-style: italic; }
+  .quote-card .attr { font-size: 11px; color: #4b5563; margin-top: 10px; font-family: 'DM Mono', monospace; }
+
+  /* ── ROOT CAUSE ── */
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .insight-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .insight-card.span2 { grid-column: 1/-1; border-color: var(--green-mid); background: #1aff8c06; }
+  .ic-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--green); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+  .ic-text { font-size: 13px; color: #d1d5db; line-height: 1.55; }
+
+  /* ── SOLUTION ── */
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step { display: flex; align-items: flex-start; gap: 18px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; transition: border-color .2s; }
+  .step:hover { border-color: var(--green-mid); }
+  .step-n { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--green-dim); border: 1px solid var(--green-mid); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--green); }
+  .step h4 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .step p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── PRODUCT ── */
+  .product-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: start; }
+  .feature-list { display: flex; flex-direction: column; gap: 10px; }
+  .feat { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; }
+  .feat-icon { flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; background: var(--green-dim); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .feat h4 { font-size: 12px; font-weight: 500; color: #e5e7eb; margin-bottom: 3px; }
+  .feat p { font-size: 11px; color: var(--muted); line-height: 1.45; }
+  .mock { background: var(--bg2); border: 1px solid var(--border2); border-radius: 14px; padding: 18px; font-family: 'DM Mono', monospace; }
+  .mock-lbl { font-size: 10px; color: #4b5563; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+  .mock-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 11px; }
+  .mock-row:last-of-type { border: none; }
+  .mk { color: var(--muted); }
+  .mv { color: var(--green); font-weight: 500; }
+  .mv.warn { color: var(--amber); }
+  .bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 4px; }
+  .bar-fill { height: 3px; background: var(--green); border-radius: 2px; }
+  .bar-fill.amber { background: var(--amber); }
+
+  /* ── MARKET ── */
+  .tiers { display: flex; flex-direction: column; gap: 12px; }
+  .tier { display: flex; align-items: center; gap: 20px; padding: 18px 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; }
+  .tier-stripe { width: 4px; border-radius: 3px; flex-shrink: 0; align-self: stretch; }
+  .tier h4 { font-size: 13px; font-weight: 500; color: #e5e7eb; }
+  .tier p { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .tier-val { margin-left: auto; font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; white-space: nowrap; }
+  .no-comp { font-size: 11px; color: #374151; margin-top: 16px; font-style: italic; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; }
+
+  /* ── BIZ MODEL ── */
+  .biz-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .biz-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .biz-card.featured { border-color: var(--green-mid); background: #1aff8c06; }
+  .tier-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--green); letter-spacing: .12em; text-transform: uppercase; }
+  .price { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); }
+  .price span { font-size: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+  .biz-who { font-size: 12px; color: var(--sub); line-height: 1.5; }
+  .flywheel { margin-top: 20px; padding: 14px 18px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; font-size: 12px; color: var(--sub); line-height: 1.6; }
+  .flywheel strong { color: var(--green); }
+
+  /* ── TRACTION ── */
+  .traction-top { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .tract { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+  .tract h4 { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+  .tract .big { font-family: 'Syne', sans-serif; font-size: 34px; font-weight: 800; color: var(--green); }
+  .tract p { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+  .roadmap { display: flex; flex-direction: column; gap: 10px; }
+  .roadmap-label { font-family: 'DM Mono', monospace; font-size: 10px; color: #4b5563; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+  .road-item { display: flex; align-items: flex-start; gap: 12px; font-size: 12px; }
+  .road-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .road-dot.done { background: var(--green); }
+  .road-dot.next { background: transparent; border: 1px solid var(--border2); }
+  .rd { color: var(--sub); white-space: nowrap; }
+  .rt { color: var(--muted); line-height: 1.5; }
+
+  /* ── ASK ── */
+  #s9 { align-items: center; justify-content: center; text-align: center; gap: 0; }
+  #s9 .ask-amount { font-family: 'Syne', sans-serif; font-size: clamp(64px,8vw,96px); font-weight: 800; color: var(--green); line-height: 1; text-shadow: 0 0 80px #1aff8c44; }
+  #s9 .ask-label { font-size: 13px; color: var(--muted); margin: 8px 0 32px; }
+  .use-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; width: 100%; max-width: 600px; }
+  .use-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 14px; }
+  .use-box .pct { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .use-box .use-lbl { font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .ask-note { padding: 14px 22px; background: var(--bg2); border: 1px solid var(--green-dim); border-radius: 10px; max-width: 500px; margin-top: 20px; font-size: 12px; color: var(--sub); line-height: 1.6; }
+  .ask-note strong { color: var(--text); }
+
+  /* ── CLOSE ── */
+  #s10 {
+    align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, #0d2218 0%, var(--bg) 70%);
+  }
+  #s10 h2 { font-family: 'Syne', sans-serif; font-size: clamp(36px,5vw,60px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 16px; }
+  #s10 h2 em { color: var(--green); font-style: normal; }
+  #s10 .tagline { font-size: 14px; color: var(--muted); max-width: 400px; line-height: 1.65; font-weight: 300; margin-bottom: 40px; }
+  .contact-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+  .contact-pill { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border2); font-size: 12px; color: var(--sub); background: var(--bg3); }
+  .contact-pill strong { color: var(--text); }
+  .share-url { display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: var(--bg2); border: 1px solid var(--green-mid); border-radius: 10px; }
+  .share-url span { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--green); }
+  .share-url button { background: var(--green); color: #000; border: none; border-radius: 6px; padding: 5px 12px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: .04em; transition: opacity .2s; }
+  .share-url button:hover { opacity: .85; }
+
+  /* ── BOTTOM NAV ── */
+  #bottombar {
+    height: 52px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px;
+    background: #08090bcc;
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+  }
+  .slide-tabs { display: flex; gap: 3px; flex-wrap: wrap; }
+  .slide-tab { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-family: 'DM Mono', monospace; cursor: pointer; border: 1px solid transparent; background: transparent; color: #4b5563; transition: all .2s; letter-spacing: .04em; }
+  .slide-tab:hover { color: var(--muted); }
+  .slide-tab.active { background: var(--green-dim); color: var(--green); border-color: var(--green-mid); }
+  .nav-arrows { display: flex; gap: 8px; }
+  .arr { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border2); background: transparent; color: var(--muted); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+  .arr:hover { border-color: var(--green); color: var(--green); }
+  #progress-bar { position: fixed; bottom: 52px; left: 0; height: 2px; background: var(--green); transition: width .35s cubic-bezier(.4,0,.2,1); z-index: 200; box-shadow: 0 0 8px var(--green); }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div id="logo"><span class="dot"></span>KRYPTONITE</div>
+    <div id="nav-pills"></div>
+    <div id="slide-counter">01 / 10</div>
+  </div>
+
+  <!-- STAGE -->
+  <div id="stage">
+
+    <!-- S1: COVER -->
+    <div class="slide active" id="s1" data-index="0">
+      <div class="cover-tag">Pitch Games 3.0 · AI/ML Track · Hyderabad 2025</div>
+      <h1>KRYPTO<span>NITE</span></h1>
+      <p class="sub">The AI-powered founder assessment platform. Crisis simulations that produce standardized cognitive reports for investors doing due diligence.</p>
+      <div class="chips">
+        <div class="chip">AI / ML</div>
+        <div class="chip">Founder Tooling</div>
+        <div class="chip">B2B SaaS</div>
+        <div class="chip">Pre-Seed</div>
+        <div class="chip">Hyderabad, India</div>
+      </div>
+    </div>
+
+    <!-- S2: PROBLEM -->
+    <div class="slide" id="s2" data-index="1">
+      <div class="label">The Problem</div>
+      <div class="slide-title">VCs bet billions on founders.<br><em>Nobody measures how they think.</em></div>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="num">90%</div>
+          <div class="lbl">of startups fail due to founder decision-making, not product quality</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">₹0</div>
+          <div class="lbl">spent on standardized founder cognitive assessment before investment</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">200+</div>
+          <div class="lbl">active accelerators in India with no objective founder benchmarking tool</div>
+        </div>
+      </div>
+      <div class="quote-card">
+        <p>"We backed the pitch. We should have backed the founder's decision-making process. We didn't have a way to tell the difference."</p>
+        <div class="attr">— Common VC post-mortem insight</div>
+      </div>
+    </div>
+
+    <!-- S3: ROOT CAUSE -->
+    <div class="slide" id="s3" data-index="2">
+      <div class="label">Root Cause</div>
+      <div class="slide-title">The current tools measure<br><em>the wrong thing.</em></div>
+      <div class="insight-grid">
+        <div class="insight-card">
+          <div class="ic-label">Pitch Decks</div>
+          <div class="ic-text">Measure storytelling ability and presentation polish — not how a founder acts when the company is burning at 3am.</div>
+        </div>
+        <div class="insight-card">
+          <div class="ic-label">Reference Calls</div>
+          <div class="ic-text">Subjective, slow, socially biased, and structurally inconsistent across candidates. Not comparable at scale.</div>
+        </div>
+        <div class="insight-card">
+          <div class="ic-label">Interviews</div>
+          <div class="ic-text">Measure interview skill. Founders who are great under structured questioning often collapse under real operational pressure.</div>
+        </div>
+        <div class="insight-card">
+          <div class="ic-label">Track Record</div>
+          <div class="ic-text">Only works for repeat founders. First-time founders — who need capital most — have no measurable signal.</div>
+        </div>
+        <div class="insight-card span2">
+          <div class="ic-label">The Gap</div>
+          <div class="ic-text">There is no standardized, AI-powered, pressure-tested, comparable signal for founder decision-making quality. <strong style="color:var(--green)">Until now.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S4: SOLUTION -->
+    <div class="slide" id="s4" data-index="3">
+      <div class="label">The Solution</div>
+      <div class="slide-title">A 20-minute simulation that reveals<br><em>how founders actually think.</em></div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <div>
+            <h4>Founder enters a hyper-personalized startup crisis</h4>
+            <p>Google Gemini 2.5 Flash generates a scenario calibrated to the founder's industry, stage, runway, team size, and declared archetype. No two scenarios are the same.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div>
+            <h4>They respond in open text — no multiple choice</h4>
+            <p>Founders articulate their full strategic reasoning. No coached answers. No A/B/C/D. Gemini evaluates the quality of their thinking, not pattern-matching.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div>
+            <h4>AI produces a structured Cognitive Assessment Report</h4>
+            <p>Scores across 5 dimensions with a percentile rank against the full founder cohort. Shareable with investors as a verified due diligence signal.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">4</div>
+          <div>
+            <h4>Socratic loop closes the learning cycle</h4>
+            <p>A follow-up question forces the founder to defend their reasoning — exposing deeper patterns. Every answer is logged in the permanent Cognitive Ledger.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S5: PRODUCT -->
+    <div class="slide" id="s5" data-index="4">
+      <div class="label">The Product</div>
+      <div class="slide-title">A professional assessment layer,<br><em>not a gamified quiz.</em></div>
+      <div class="product-grid">
+        <div class="feature-list">
+          <div class="feat">
+            <div class="feat-icon">⚡</div>
+            <div>
+              <h4>Gemini-powered crisis engine</h4>
+              <p>Scenarios calibrated to your exact startup context. Multimodal — accepts uploaded pitch decks and data.</p>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">📊</div>
+            <div>
+              <h4>5-dimension cognitive scoring</h4>
+              <p>Strategic Reasoning · Emotional Control · Risk Awareness · Executive Clarity · Crisis Resilience</p>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">📈</div>
+            <div>
+              <h4>Cohort percentile ranking</h4>
+              <p>"Outperforms 73% of Seed-stage founders" — a comparable, market-relative signal.</p>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">🔒</div>
+            <div>
+              <h4>Locked VC report with access tiers</h4>
+              <p>Failure logs (score &lt;75) are redacted by default. VCs request full access. Founder controls visibility.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="mock-lbl">SAMPLE REPORT OUTPUT</div>
+          <div class="mock">
+            <div class="mock-row"><span class="mk">Subject</span><span class="mv">Mohammad Khalid</span></div>
+            <div class="mock-row"><span class="mk">Archetype</span><span class="mv">Visionary · Data-driven</span></div>
+            <div class="mock-row"><span class="mk">Decision Score</span><span class="mv">78 / 100</span></div>
+            <div class="mock-row"><span class="mk">Cohort Percentile</span><span class="mv">81st</span></div>
+            <div class="mock-row"><span class="mk">Strategic Reasoning</span><span class="mv">82</span></div>
+            <div class="bar"><div class="bar-fill" style="width:82%"></div></div>
+            <div class="mock-row" style="margin-top:8px"><span class="mk">Emotional Control</span><span class="mv warn">61</span></div>
+            <div class="bar"><div class="bar-fill amber" style="width:61%"></div></div>
+            <div class="mock-row" style="margin-top:8px"><span class="mk">Risk Awareness</span><span class="mv">74</span></div>
+            <div class="bar"><div class="bar-fill" style="width:74%"></div></div>
+            <div class="mock-row" style="margin-top:8px"><span class="mk">Verdict</span><span class="mv">Strong Founder</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S6: MARKET -->
+    <div class="slide" id="s6" data-index="5">
+      <div class="label">Market Opportunity</div>
+      <div class="slide-title">A massive underserved market<br><em>hiding in plain sight.</em></div>
+      <div class="tiers">
+        <div class="tier">
+          <div class="tier-stripe" style="height:52px;background:var(--green)"></div>
+          <div>
+            <h4>TAM — Global VC & Accelerator Market</h4>
+            <p>50,000+ accelerator cohort seats/year globally · 10,000+ active VC firms · Existing spend on founder assessment: background checks, consultants, off-sites</p>
+          </div>
+          <div class="tier-val" style="color:var(--green)">$4.2B</div>
+        </div>
+        <div class="tier">
+          <div class="tier-stripe" style="height:44px;background:var(--blue)"></div>
+          <div>
+            <h4>SAM — India + SE Asia Accelerator & VC Ecosystem</h4>
+            <p>200+ Indian accelerators · T-Hub, NASSCOM 10K, IIM incubators · Early-stage VC firms doing 50–200 deals/year</p>
+          </div>
+          <div class="tier-val" style="color:var(--blue)">$180M</div>
+        </div>
+        <div class="tier">
+          <div class="tier-stripe" style="height:36px;background:var(--purple)"></div>
+          <div>
+            <h4>SOM — Year 1 Beachhead (India Accelerators)</h4>
+            <p>20 accelerator cohorts × ₹60,000/cohort = ₹12L ARR. Expand to VC firm subscriptions in Year 2.</p>
+          </div>
+          <div class="tier-val" style="color:var(--purple)">₹12L</div>
+        </div>
+      </div>
+      <p class="no-comp">No direct competitor offers AI-generated, pressure-tested, cohort-benchmarked founder cognitive assessment at any price point.</p>
+    </div>
+
+    <!-- S7: BIZ MODEL -->
+    <div class="slide" id="s7" data-index="6">
+      <div class="label">Business Model</div>
+      <div class="slide-title">Three clear revenue streams.<br><em>All B2B. All recurring.</em></div>
+      <div class="biz-grid">
+        <div class="biz-card">
+          <div class="tier-label">Tier 1 · Accelerators</div>
+          <div class="price">₹60K <span>/ cohort</span></div>
+          <div class="biz-who">30 founders assessed. Cohort comparison dashboard. Batch report export. Perfect for T-Hub, NASSCOM, IIM incubators.</div>
+        </div>
+        <div class="biz-card featured">
+          <div class="tier-label">Tier 2 · VC Firms ★</div>
+          <div class="price">₹2L <span>/ year</span></div>
+          <div class="biz-who">Unlimited founder profile access. Priority report unlocking. API access for portfolio integration. Target: 50 VC firms Year 2.</div>
+        </div>
+        <div class="biz-card">
+          <div class="tier-label">Tier 3 · Founders</div>
+          <div class="price">₹499 <span>/ month</span></div>
+          <div class="biz-who">Individual subscription. Unlimited simulations. Full cognitive ledger. Shareable VC report. Volume driver for cohort data flywheel.</div>
+        </div>
+      </div>
+      <div class="flywheel"><strong>Data flywheel:</strong> Each founder assessment enriches the cohort benchmark. More data → more accurate percentiles → more valuable reports → easier enterprise sales. The moat compounds with usage.</div>
+    </div>
+
+    <!-- S8: TRACTION -->
+    <div class="slide" id="s8" data-index="7">
+      <div class="label">Traction & Roadmap</div>
+      <div class="slide-title">Built. Deployed. <em>Ready to scale.</em></div>
+      <div class="traction-top">
+        <div class="tract">
+          <h4>Status</h4>
+          <div class="big">Live</div>
+          <p>Full-stack product deployed. Backend on Render, frontend on Vercel. Google OAuth + Gemini 2.5 Flash integrated.</p>
+        </div>
+        <div class="tract">
+          <h4>Tech Stack</h4>
+          <div class="big" style="font-size:18px;padding-top:6px;line-height:1.3">FastAPI<br>+ Next.js</div>
+          <p>Python backend · TypeScript frontend · Google Gemini 2.5 Flash · Native OAuth · SQLite → PostgreSQL</p>
+        </div>
+      </div>
+      <div class="roadmap">
+        <div class="roadmap-label">Roadmap</div>
+        <div class="road-item"><div class="road-dot done"></div><span class="rd">Done —</span>&nbsp;<span class="rt">Crisis simulation engine · Cognitive evaluation · VC profile · Cohort benchmarking · Native Google OAuth</span></div>
+        <div class="road-item"><div class="road-dot next"></div><span class="rd">Next 30 days —</span>&nbsp;<span class="rt">15 beta founders onboarded · First accelerator pilot conversation</span></div>
+        <div class="road-item"><div class="road-dot next"></div><span class="rd">Q3 2025 —</span>&nbsp;<span class="rt">Accelerator cohort dashboard · Batch assessment mode · PDF report export</span></div>
+        <div class="road-item"><div class="road-dot next"></div><span class="rd">Q4 2025 —</span>&nbsp;<span class="rt">First paying accelerator client · VC firm API access · 500 founders assessed</span></div>
+      </div>
+    </div>
+
+    <!-- S9: ASK -->
+    <div class="slide" id="s9" data-index="8">
+      <div class="label" style="align-self:center">The Ask</div>
+      <div class="slide-title" style="text-align:center">Seed capital to build<br><em>the data flywheel.</em></div>
+      <div class="ask-amount">₹25L</div>
+      <div class="ask-label">Seed Round — Open to Conversations</div>
+      <div class="use-grid">
+        <div class="use-box"><div class="pct">40%</div><div class="use-lbl">Product & Engineering — Cohort dashboard, PDF reports, API layer</div></div>
+        <div class="use-box"><div class="pct">35%</div><div class="use-lbl">Go-to-Market — Accelerator partnerships, VC firm outreach, pilots</div></div>
+        <div class="use-box"><div class="pct">25%</div><div class="use-lbl">Operations & AI Infra — Gemini API costs, compute, legal setup</div></div>
+      </div>
+      <div class="ask-note">Beyond capital, we're looking for advisors with <strong>accelerator relationships</strong> and <strong>B2B SaaS GTM experience</strong> in the Indian startup ecosystem.</div>
+    </div>
+
+    <!-- S10: CLOSE -->
+    <div class="slide" id="s10" data-index="9">
+      <h2>The signal VCs<br>have been <em>missing.</em></h2>
+      <p class="tagline">Kryptonite turns 20 minutes of founder pressure into a standardized cognitive report that changes how the startup ecosystem makes investment decisions.</p>
+      <div class="contact-row">
+        <div class="contact-pill"><strong>Mohammad Khalid</strong></div>
+        <div class="contact-pill">Founder · Kryptonite</div>
+        <div class="contact-pill">Hyderabad, India</div>
+      </div>
+      <div class="share-url">
+        <span id="share-link">kryptonite-app.vercel.app</span>
+        <button onclick="copyLink()">Copy Link</button>
+      </div>
+    </div>
+
+  </div><!-- /stage -->
+
+  <div id="progress-bar"></div>
+
+  <!-- BOTTOM BAR -->
+  <div id="bottombar">
+    <div class="slide-tabs" id="tabs"></div>
+    <div class="nav-arrows">
+      <button class="arr" id="prev">←</button>
+      <button class="arr" id="next">→</button>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+  const LABELS = ['Cover','Problem','Root Cause','Solution','Product','Market','Biz Model','Traction','The Ask','Close'];
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const tabsEl = document.getElementById('tabs');
+  const counterEl = document.getElementById('slide-counter');
+  const pillsEl = document.getElementById('nav-pills');
+  const progressEl = document.getElementById('progress-bar');
+  let cur = 0;
+
+  // Build tabs + pills
+  LABELS.forEach((l, i) => {
+    const tab = document.createElement('button');
+    tab.className = 'slide-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = l;
+    tab.onclick = () => go(i);
+    tabsEl.appendChild(tab);
+
+    const pill = document.createElement('button');
+    pill.className = 'pill-btn' + (i === 0 ? ' active' : '');
+    pill.onclick = () => go(i);
+    pill.title = l;
+    pillsEl.appendChild(pill);
+  });
+
+  function go(n) {
+    if (n === cur) return;
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add('exit');
+    const prev = cur;
+    setTimeout(() => slides[prev].classList.remove('exit'), 450);
+
+    tabsEl.children[cur].classList.remove('active');
+    pillsEl.children[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    tabsEl.children[cur].classList.add('active');
+    pillsEl.children[cur].classList.add('active');
+
+    counterEl.textContent = String(cur + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+    progressEl.style.width = ((cur + 1) / slides.length * 100) + '%';
+  }
+
+  document.getElementById('prev').onclick = () => go(cur - 1);
+  document.getElementById('next').onclick = () => go(cur + 1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(cur - 1);
+  });
+
+  // Init progress
+  progressEl.style.width = (1 / slides.length * 100) + '%';
+
+  // Touch swipe
+  let tx = 0;
+  document.getElementById('stage').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+  document.getElementById('stage').addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) go(dx < 0 ? cur + 1 : cur - 1);
+  }, {passive:true});
+
+  function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.querySelector('.share-url button');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy Link', 2000);
+    });
+  }
+</script>
+</body>
+</html>
